@@ -9,7 +9,7 @@ final class SwiftbrewTests: XCTestCase {
             return
         }
 
-        let fooBinary = productsDirectory.appendingPathComponent("Swiftbrew")
+        let fooBinary = productsDirectory.appendingPathComponent("swift-brew")
 
         let process = Process()
         process.executableURL = fooBinary
