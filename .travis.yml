@@ -1,0 +1,4 @@
+language: objective-c
+osx_image: xcode10.2
+script:
+- swift test
