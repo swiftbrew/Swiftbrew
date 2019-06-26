@@ -57,7 +57,7 @@ via Homebrew. But there are some limitations:
   formulae, you would have to create and maintain your own tap.
 - As a package maintainer, a usual release process would be: build the
   executable, archive it into a tarball/zipball, upload it to GitHub releases,
-  bump formula version.
+  bump formula version. This is a cumbersome process.
 - It can be tricky to install a specific version of a tool with Homebrew.
 
 [Mint](https://github.com/yonaskolb/Mint) is a package manager that builds and
@@ -98,7 +98,7 @@ Bottle not yet available. Sent a build request to build workers.
 
 *What kind of packages can Swiftbrew install?*
 
-> Swiftbrew can install any public Swift command line tool package. If you
+> Swiftbrew can install any public Swift command line tool package. If your
 > package can be built with `swift build` command, then it can be installed via
 > Swiftbrew.
 
