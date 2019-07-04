@@ -15,6 +15,12 @@ brew install swiftbrew/tap/swiftbrew
 mint install swiftbrew/Swiftbrew
 ```
 
+### Swiftbrew
+
+```
+swift brew install swiftbrew/Swiftbrew
+```
+
 ## Usage
 
 ```
