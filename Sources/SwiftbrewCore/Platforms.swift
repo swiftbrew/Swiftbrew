@@ -15,7 +15,9 @@ struct MacOS {
         case 14:
             return "mojave"
         case 15:
-            return "catalina"
+            // Install bottles for macOS Mojave for now until we have build workers for macOS Catalina.
+            // return "catalina"
+            return "mojave"
         default:
             return "macos_10.16"
         }
