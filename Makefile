@@ -50,7 +50,8 @@ release: clean package
 	$(SED) -i '' '4s/.*/  version "$(VERSION)"/' ../homebrew-tap/swiftbrew.rb
 	$(SED) -i '' '6s/.*/  sha256 "$(shell shasum -a 256 "$(TARBALL)" | cut -f 1 -d " ")"/' ../homebrew-tap/swiftbrew.rb
 	$(HUB) release create --message $(VERSION) --attach $(TARBALL) $(VERSION)
-	$(GIT) --git-dir=../homebrew-tap/.git commit swiftbrew.rb -m "Release version $(VERSION)"
+	$(CD) ../homebrew-tap && \
+		$(GIT) commit swiftbrew.rb -m "Release version $(VERSION)"
 	$(GIT) --git-dir=../homebrew-tap/.git push origin master
 
 .PHONY: xcode
