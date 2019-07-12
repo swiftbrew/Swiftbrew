@@ -72,7 +72,9 @@ public func install(package: String) throws {
         tryCount += 1
 
         if tryCount == maxTryCount {
-            printInfo("Bottle still not available after \(tryCount * Int(waitingInterval) / 60) minutes wait. Try again next time. Bye!")
+            printInfo("Bottle still not available after \(tryCount * Int(waitingInterval) / 60) minutes wait.")
+            printInfo("Check build log: https://app.bitrise.io/build/b48f2d2fe0b698c1")
+            printInfo("File an issue: https://github.com/swiftbrew/Swiftbrew/issues/new")
             exit(1)
         }
 
