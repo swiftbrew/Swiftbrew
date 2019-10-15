@@ -83,7 +83,7 @@ public func install(package: String) throws {
 
     let makeCachesDir = run("mkdir -p \(cachesPath)")
     guard makeCachesDir.exitStatus == 0 else {
-        printError(makeCachesDir.stderr.foreground.Red)
+        printError(makeCachesDir.stderr)
         exit(1)
     }
 
@@ -92,7 +92,7 @@ public func install(package: String) throws {
         contents: bottleData,
         attributes: nil)
     else {
-        printError("==> Error writing to path \(cachedBottlePath)".foreground.Red)
+        printError("Failed to write to path \(cachedBottlePath)")
         exit(1)
     }
 
