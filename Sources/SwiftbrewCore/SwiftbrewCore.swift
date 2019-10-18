@@ -22,6 +22,7 @@ private let cachesPath = "\(swiftbrewHomePath)/caches"
 
 private let maxTryCount = 20
 private let waitingInterval: UInt32 = 30
+private let delayInterval: UInt32 = 3
 
 public func install(package: String) throws {
     let packageRef = PackageReference(package: package)
@@ -117,6 +118,38 @@ public func install(package: String) throws {
     printInfo("🍺  \(installPath)")
 }
 
+public func uninstall(name: String) throws {
+    var installedPackages: [String]
+
+    do {
+        installedPackages = try listPackages()
+    } catch {
+        printError(error.localizedDescription)
+        exit(1)
+    }
+
+    let packages = installedPackages.filter {
+        $0.components(separatedBy: "/").last == name
+    }
+
+    switch packages.count {
+    case 0:
+        printError("No such package \(name)")
+        exit(1)
+    case 1:
+        try deletePackage(packages.first!)
+        printInfo("🗑   \(name) was uninstalled")
+    default:
+        for package in packages {
+            try deletePackage(package)
+        }
+
+        printInfo("🗑   \(packages.count) packages match the name \(name) was uninstalled")
+    }
+}
+
+// MARK: - Private
+
 private func linkExecutables(installPath: String) throws {
     let ls = run("/bin/ls \(installPath)")
     guard ls.exitStatus == 0 else {
@@ -163,4 +196,43 @@ private func resolvePackageVersion(_ package: PackageReference) throws {
     }
 
     printInfo("Resolved latest version of \(package.name) to \(package.version)")
+}
+
+// Return the list of installed packages in short-hand form.
+// Eg: ["thii/xcbeautify"]
+private func listPackages() throws -> [String] {
+    guard let url = URL(string: cellarPath) else {
+        fatalError()
+    }
+
+    let packageURLs = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+
+    return packageURLs.compactMap { (url) in
+        let components = url.path.components(separatedBy: "_")
+        guard components.count == 3 else {
+            return nil
+        }
+
+        return components[1] + "/" + components[2]
+    }
+}
+
+private func deletePackage(_ package: String) throws {
+    let packageRef = PackageReference(package: package)
+    let packagePath = "\(cellarPath)/\(packageRef.repoPath)"
+
+    printProcessingInfo("Uninstalling \(packageRef.namedVersion)")
+    sleep(delayInterval)
+
+    // Remove package
+    // Note that all versions will be removed altogether
+    let rm = run("/bin/rm -rf \(packagePath)")
+    guard rm.exitStatus == 0 else {
+        printError(rm.stderr)
+        exit(1)
+    }
+
+    // Remove symbolic link silently
+    let symlinkPath = "\(binDirectory)/\(packageRef.name)"
+    _ = run("/bin/rm \(symlinkPath)")
 }
