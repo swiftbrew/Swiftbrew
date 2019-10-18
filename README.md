@@ -1,4 +1,4 @@
-# Swiftbrew [![Build Status](https://travis-ci.com/swiftbrew/Swiftbrew.svg?branch=master)](https://travis-ci.com/swiftbrew/Swiftbrew)
+# Swiftbrew ![](https://github.com/swiftbrew/Swiftbrew/workflows/Build/badge.svg)
 
 A package manager that installs prebuilt Swift command line tool packages, or _Homebrew for Swift packages_.
 
