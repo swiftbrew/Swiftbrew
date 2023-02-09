@@ -18,13 +18,13 @@ mint install swiftbrew/Swiftbrew
 ### Swiftbrew
 
 ```
-swift brew install swiftbrew/Swiftbrew
+brew install swiftbrew/Swiftbrew
 ```
 
 ## Usage
 
 ```
-swift brew install <package-reference>
+brew install <package-reference>
 ```
 
 Package reference can be a shorthand for a GitHub repository
@@ -37,18 +37,18 @@ version (`@x.y.z`). Swiftbrew currently only supports public repositories.
 Install the latest version of `Carthage`:
 
 ```
-swift brew install Carthage/Carthage
+brew install Carthage/Carthage
 ```
 or
 
 ```
-swift brew install https://github.com/Carthage/Carthage
+brew install https://github.com/Carthage/Carthage
 ```
 
 Install `Carthage` version 0.33.0:
 
 ```
-swift brew install Carthage/Carthage@0.33.0
+brew install Carthage/Carthage@0.33.0
 ```
 
 ## Why create another package manager?
